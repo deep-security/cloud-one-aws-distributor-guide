@@ -21,7 +21,9 @@ of which can be delivered via subscription from the AWS Marketplace.
 [Workload Security Account]: https://aws.amazon.com/marketplace/pp/Trend-Micro-Trend-Micro-Cloud-One-Workload-Securit/B01LXMNGHB
 [Customer Managed Deep Security Manager]: https://aws.amazon.com/marketplace/pp/B01AVYHVHO?qid=1594681648985&sr=0-1&ref_=srh_res_product_title
 
-### Usage
+### Prerequisites
+
+#### Workload Security
 The package retrieves necessary details to activate the agent from Systems Manager Parameter Store. The four required 
 parameters and examples are listed here.
 
@@ -50,4 +52,26 @@ and token optional for single tenant implementations which will be the majority 
  dsTenantId: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx or empty for single tenant
  
  dsToken: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx or empty (optional) for single tenant
+ 
+#### Cloud One Workload or Deep Security Manager setup
+
+Trend Micro strongly recommends [configuration of a cloud connector] for each AWS account which will contain managed 
+agents. It may also be necessary to [create a policy] specific to the systems which will be managed by Distributor.
+
+[configuration of a cloud connector]: https://help.deepsecurity.trendmicro.com/aws-add-cross-account.html?Highlight=cloud%20connector
+[create a policy]: https://help.deepsecurity.trendmicro.com/policy-create.html?Highlight=policy
+
+### Usage
+
+Once the necessary parameters have been created Navigate to Systems Manager > Distributor, find and select the Cloud 
+One Workload package, then click "Install On a Schedule". Leveraging a scheduled State Manager Association will ensure 
+agents are always installed and up to date. On the Association page, select a schedule for enforcement and conditions 
+for install.
+
+Trend Micro recommends using In-place update for the Installation Type. Leave the package Name unchanged.
+
+Targets can be selected in several formats based on tags, resource groups, manual selection, or all instances. More 
+information on instance selection can be found in the [Systems Manager Distributor documentation].
+
+[Systems Manager Distributor documentation]: https://docs.aws.amazon.com/systems-manager/latest/userguide/distributor-working-with-packages-deploy.html
 
